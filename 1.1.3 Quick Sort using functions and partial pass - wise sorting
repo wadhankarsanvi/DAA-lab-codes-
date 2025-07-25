@@ -1,0 +1,84 @@
+#include<stdio.h>
+
+void swap(int arr[], int i, int j){
+int temp = arr[i];
+arr[i] = arr[j];
+arr[j] = temp;
+}
+
+void printarray(int arr[], int size){
+for(int i=0; i<size;i++)
+{
+printf("%d ",arr[i]);
+}
+printf("\n");
+
+}
+
+void printPass(int arr[], int start, int end) {
+    printf("Pass: ");
+    for (int i = start; i <= end; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int partition(int arr[],int low , int high){
+int pivot = arr[low];
+int left = low+1;
+int right =  high;
+
+while(1){
+while(left<=right && arr[left]<=pivot)
+left++;
+
+while(right>=left && arr[right]>pivot)
+right--;
+
+if(left>right)
+break;
+
+swap(arr,left,right);
+
+}
+swap(arr,low,right);
+printPass(arr,low,high);
+
+return right;
+}
+
+
+void quickSort(int arr[], int low, int high){
+if(low<high){
+int pivotindex = partition(arr,low,high);
+quickSort(arr,low,pivotindex-1);
+quickSort(arr,pivotindex+1, high);
+
+}
+}
+
+void read1(int arr[], int n){
+    printf("elements : ");
+    int i;
+    for(i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+}
+
+
+
+int main(){
+int n;
+printf("number of elements : ");
+scanf("%d",&n);
+int arr[20];
+read1(arr,n);
+printf("Original: ");
+printarray(arr,n);
+
+quickSort(arr,0,n-1);
+printf("sorted : ");
+printarray(arr,n);
+return 0;
+
+}
